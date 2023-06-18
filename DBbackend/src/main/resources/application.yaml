@@ -1,1 +1,6 @@
-
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.130.41.196:3306/数据库课设?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: Haenu
+    password: Haenu03170811.
