@@ -15,10 +15,11 @@ public class R<T> {
 
     private Map map = new HashMap(); //动态数据
 
-    public static <T> R<T> success(T object) {
+    public static <T> R<T> success(T object,String msg) {
         R<T> r = new R<T>();
         r.data = object;
         r.code = 1;
+        r.msg = msg;
         return r;
     }
 
