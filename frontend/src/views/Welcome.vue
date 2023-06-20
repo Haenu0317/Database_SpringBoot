@@ -7,7 +7,7 @@
     <div class="welcome-title">
     <div style="font-size: 50px;font-weight: bold">港口堆存费后台管理系统</div>
     </div>
-    <div style="width: 500px;background-color: white">
+    <div style="width: 500px;background-color: white;z-index: 1">
       <router-view/>
     </div>
   </div>
