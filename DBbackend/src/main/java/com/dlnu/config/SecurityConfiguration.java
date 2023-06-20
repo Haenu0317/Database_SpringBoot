@@ -17,8 +17,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.io.IOException;
+
 
 @Configuration
 @EnableWebSecurity
@@ -42,12 +46,30 @@ public class SecurityConfiguration {
                 .and()
                 .csrf()
                 .disable()
+                //跨域解决
+                .cors()
+                .configurationSource(this.configurationSource())
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(this::onAuthenticationEntryPoint)
                 .and()
                 .build();
     }
 
+    private CorsConfigurationSource configurationSource() {
+        CorsConfiguration cors = new CorsConfiguration();
+        /*cors.setAllowedOrigins(List.of("http://localhost:8080"));
+        cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));*/
+        cors.addAllowedOriginPattern("*");
+        //允许携带cookie
+        cors.setAllowCredentials(true);
+        cors.addAllowedMethod("*");
+        cors.addAllowedHeader("*");
+        cors.addExposedHeader("*");
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", cors);
+        return source;
+    }
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
@@ -62,13 +84,13 @@ public class SecurityConfiguration {
     }
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(JSONObject.toJSONString(R.success(null,"登录成功")));
+        response.getWriter().write(JSONObject.toJSONString(R.success("登陆成功")));
     }
 
     private void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
         try {
             httpServletResponse.setContentType("application/json;charset=utf-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error("用户名或者密码错误")));
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401,"用户名或者密码错误")));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -77,7 +99,7 @@ public class SecurityConfiguration {
     private void onAuthenticationEntryPoint(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
         try {
             httpServletResponse.setContentType("application/json;charset=utf-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error("请先登录")));
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401,"请先登录")));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
