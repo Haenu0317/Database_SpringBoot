@@ -5,7 +5,7 @@
       <div style="font-size: 14px;color: grey">请先输入新的用户名和密码进行注册</div>
     </div>
     <div style="margin-top: 50px">
-      <el-form :model="form" :rules="rules">
+      <el-form :model="form" :rules="rules" ref="formRef" @validate="onValidate">
         <el-form-item  prop="username">
           <el-input type="text" v-model="form.username" placeholder="用户名">
             <template #prepend>
@@ -35,12 +35,39 @@
             </template>
           </el-input>
         </el-form-item>
+
+        <el-form-item prop="email">
+          <el-input type="email" v-model="form.email"  placeholder="邮箱">
+            <template #prepend>
+              <el-icon slot="prefix">
+                <Message/>
+              </el-icon>
+            </template>
+          </el-input>
+        </el-form-item>
       </el-form>
+
+      <el-form-item prop="code">
+      <el-row :gutter="10" style="width: 100%">
+        <el-col :span="19">
+          <el-input type="text" v-model="form.code"  placeholder="请输入验证码">
+            <template #prepend>
+              <el-icon slot="prefix">
+                <EditPen/>
+              </el-icon>
+            </template>
+          </el-input>
+        </el-col>
+        <el-col :span="5">
+          <el-button type="success" :disabled="!isEmailValid">获取验证码</el-button>
+        </el-col>
+      </el-row>
+      </el-form-item>
 
 
     </div>
     <div style="margin-top: 40px">
-      <el-button  style="width: 270px" type="success">提交</el-button>
+      <el-button  @click="register" style="width: 270px" type="success">提交</el-button>
     </div>
     <div style="font-size: 14px;line-height: 15px;margin-top: 20px">
       <span style="color: grey">已有账号?</span>
@@ -50,17 +77,30 @@
 </template>
 
 <script setup>
-import {Lock, User} from '@element-plus/icons-vue'
+import {EditPen, Lock, Message, User} from '@element-plus/icons-vue'
 import router from "@/router";
-import {reactive} from "vue";
+import {reactive, ref} from "vue";
+import {ElMessage} from "element-plus";
 
 
+const formRef = ref()
 const form = reactive({
   username: '',
   password: '',
-  password_repeat: ''
+  password_repeat: '',
+  email: '',
+  code: ''
 })
 
+const register = () =>{
+    formRef.value.validate((isValid) => {
+      if (isValid) {
+
+      } else {
+        ElMessage.warning("请完整提交表单内容!")
+      }
+    });
+}
 const validateUsername = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('请输入用户名'))
@@ -93,11 +133,20 @@ const rules = ({
   password_repeat: [
     {validator:validatePass2, trigger: ['blur','change']},
     { min: 6, max: 20, message: '密码长度在6-20个字符', trigger: ['blur','change'] },
+  ],
+  email:[
+    { required: true, message: '请输入邮件地址', trigger: ['blur','change'] },
+    {type: 'email', message: '请输入合法邮件地址', trigger: ['blur', 'change']},
   ]
 })
 
+const isEmailValid = ref(false)
 
-
+const onValidate = (prop,isValid) =>{
+  if (prop === 'email'){
+    isEmailValid.value = isValid
+  }
+}
 
 
 </script>
