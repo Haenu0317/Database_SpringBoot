@@ -42,6 +42,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http,PersistentTokenRepository repository) throws Exception {
         return http
                 .authorizeRequests()
+                .requestMatchers("/api/auth/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
