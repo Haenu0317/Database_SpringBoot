@@ -9,22 +9,21 @@ public class R<T> {
 
     private boolean success; //信息
 
-    private T data; //数据
+    private T message; //数据
 
 
-    public R(Integer status, boolean success, T data) {
+    public R(Integer status, boolean success, T message) {
         this.status = status;
         this.success = success;
-        this.data = data;
+        this.message = message;
     }
 
     public static <T> R<T> success(T object) {
-        return new R<>(200, true, null);
+        return new R<>(200, true, object);
     }
 
-    public static <T> R<T> error(int status, String data) {
-        R r = new R(status, false, data);
-        return r;
+    public static <T> R<T> error(int status, T data) {
+        return new R<>(status, false, data);
 
     }
 

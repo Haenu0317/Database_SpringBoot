@@ -30,6 +30,7 @@ public class SecurityConfiguration {
 
     @Resource
     AuthorizeService authorizeService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
@@ -43,6 +44,7 @@ public class SecurityConfiguration {
                 .and()
                 .logout()
                 .logoutUrl("/api/auth/logout")
+                .logoutSuccessHandler(this::onAuthenticationSuccess)
                 .and()
                 .csrf()
                 .disable()
@@ -70,6 +72,7 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", cors);
         return source;
     }
+
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
@@ -82,15 +85,20 @@ public class SecurityConfiguration {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(JSONObject.toJSONString(R.success("登陆成功")));
+        if (request.getRequestURI().endsWith("/login")) {
+            response.getWriter().write(JSONObject.toJSONString(R.success("登陆成功")));
+        } else if (request.getRequestURI().endsWith("/logout")){
+            response.getWriter().write(JSONObject.toJSONString(R.success("退出成功")));
+        }
     }
 
     private void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
         try {
             httpServletResponse.setContentType("application/json;charset=utf-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401,"用户名或者密码错误")));
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401, "用户名或者密码错误")));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -99,7 +107,7 @@ public class SecurityConfiguration {
     private void onAuthenticationEntryPoint(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
         try {
             httpServletResponse.setContentType("application/json;charset=utf-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401,"请先登录")));
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401, "请先登录")));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
