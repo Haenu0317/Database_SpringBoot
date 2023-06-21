@@ -20,7 +20,7 @@ function post(url,data,success,failure=defaultFailure,error=defaultError){
 }
 
 function get(url,success,failure=defaultFailure,error=defaultError){
-    axios.post(url,{
+    axios.get(url,{
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },

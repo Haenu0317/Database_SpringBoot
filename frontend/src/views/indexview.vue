@@ -1,7 +1,7 @@
 <template>
-<div>
-  欢迎进入港口堆存费后台管理系统
-</div>
+  <div>
+    欢迎进入港口堆存费后台管理系统
+  </div>
   <div>
     <el-button @click="logout()" type="danger" plain>退出登录</el-button>
   </div>
@@ -11,10 +11,13 @@
 import {get} from "@/net";
 import {ElMessage} from "element-plus";
 import router from "@/router";
+import {useStore} from "@/stores";
 
-const logout = () =>{
-  get('/api/auth/logout',(message) => {
+const store = useStore()
+const logout = () => {
+  get('/api/auth/logout', (message) => {
     ElMessage.success(message)
+    store.auth.user = null
     router.push('/')
   })
 }

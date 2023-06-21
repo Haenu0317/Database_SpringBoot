@@ -44,16 +44,17 @@
 <script setup>
 import {Lock, User} from '@element-plus/icons-vue'
 import {reactive} from "vue";
-import {post} from "@/net";
+import {get, post} from "@/net";
 import {ElMessage} from "element-plus";
 import router from "@/router";
+import {useStore} from "@/stores";
 
 const form = reactive({
   username: '',
   password: '',
   remember: false,
 })
-
+const store = useStore()
 const login = () => {
 if (!form.username||!form.password){
   ElMessage.warning('请输入用户名或密码')
@@ -64,7 +65,12 @@ if (!form.username||!form.password){
     remember:form.remember
   },(message)=>{
     ElMessage.success(message)
-    router.push('/index')
+    get('/api/user/me', (message) => {
+      store.auth.user = message
+      router.push("/index")
+    }, () => {
+      store.auth.user = null
+    })
   })
 }
 
