@@ -1,15 +1,12 @@
 package com.dlnu;
 
-import com.dlnu.entity.StockinData;
-import com.dlnu.entity.StockoutData;
+import com.dlnu.entity.user.StockinData;
+import com.dlnu.entity.user.StockoutData;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @SpringBootTest

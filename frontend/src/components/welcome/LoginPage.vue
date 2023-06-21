@@ -26,10 +26,6 @@
           <el-col :span="12" style="text-align: left">
             <el-checkbox v-model="form.remember" label="记住我"/>
           </el-col>
-          <el-col :span="12" style="text-align: right">
-            <el-link>忘记密码?</el-link>
-          </el-col>
-
         </el-row>
         <div style="margin-top: 40px">
           <el-button @click="login()" style="width: 270px" type="success" color="#626aef">登录</el-button>

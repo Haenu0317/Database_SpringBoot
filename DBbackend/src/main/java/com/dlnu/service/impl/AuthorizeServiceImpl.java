@@ -1,10 +1,9 @@
 package com.dlnu.service.impl;
 
-import com.dlnu.entity.Account;
+import com.dlnu.entity.user.Account;
 import com.dlnu.mapper.UserMapper;
 import com.dlnu.service.AuthorizeService;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.MailException;
@@ -13,7 +12,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +31,7 @@ public class AuthorizeServiceImpl implements AuthorizeService {
     @Resource
     StringRedisTemplate template;
 
-   //循环引用了
+    //循环引用了
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Override

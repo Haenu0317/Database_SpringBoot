@@ -1,6 +1,6 @@
 package com.dlnu.mapper;
 
-import com.dlnu.entity.Account;
+import com.dlnu.entity.user.Account;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

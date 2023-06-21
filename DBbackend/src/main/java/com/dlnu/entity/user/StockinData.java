@@ -1,4 +1,4 @@
-package com.dlnu.entity;
+package com.dlnu.entity.user;
 
 import lombok.Data;
 

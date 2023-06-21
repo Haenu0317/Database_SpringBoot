@@ -59,7 +59,9 @@
             </el-input>
           </el-col>
           <el-col :span="5">
-            <el-button @click="validateEmail" type="success" :disabled="!isEmailValid">获取验证码</el-button>
+            <el-button @click="validateEmail" type="success" :disabled="!isEmailValid">
+              {{coldTime > 0 ? coldTime + '秒后重新获取' : '获取验证码'}}
+            </el-button>
           </el-col>
         </el-row>
       </el-form-item>
@@ -150,7 +152,7 @@ const rules = ({
 })
 
 const isEmailValid = ref(false)
-
+const coldTime = ref(0)
 const onValidate = (prop, isValid) => {
   if (prop === 'email') {
     isEmailValid.value = isValid
@@ -162,6 +164,12 @@ const validateEmail = () => {
     email: form.email
   }, (message) => {
     ElMessage.success(message)
+    coldTime.value = 60
+    setInterval(() => {
+      if (coldTime.value > 0) {
+        coldTime.value--
+      }
+    }, 1000)
   }, (message) => {
     ElMessage.error(message)
   })
