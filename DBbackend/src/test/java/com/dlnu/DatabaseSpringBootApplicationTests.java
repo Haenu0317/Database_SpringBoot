@@ -1,7 +1,7 @@
 package com.dlnu;
 
-import com.dlnu.entity.user.StockinData;
-import com.dlnu.entity.user.StockoutData;
+import com.dlnu.entity.user.InStore;
+import com.dlnu.entity.user.OutStore;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +24,7 @@ class DatabaseSpringBootApplicationTests {
         }
     }
 
-    public void calculateStorageFee(StockoutData[] stockoutData, StockinData[] stockinData) {
+    public void calculateStorageFee(OutStore[] stockoutData, InStore[] stockinData) {
         int stockinsum = 0;
         int stockoutsum = 0;
         double feesum = 0;
@@ -123,25 +123,25 @@ class DatabaseSpringBootApplicationTests {
 
     @Test
     void suanfa(){
-        StockinData[] stockinData = new StockinData[3];
-        StockoutData[] stockoutData = new StockoutData[3];
+        InStore[] stockinData = new InStore[3];
+        OutStore[] stockoutData = new OutStore[3];
 
-        stockinData[0] = new StockinData();
+        stockinData[0] = new InStore();
         stockinData[0].setWhtime("20210801");
         stockinData[0].setIbton("30");
-        stockinData[1] = new StockinData();
+        stockinData[1] = new InStore();
         stockinData[1].setWhtime("20210821");
         stockinData[1].setIbton("33");
-        stockinData[2] = new StockinData();
+        stockinData[2] = new InStore();
         stockinData[2].setWhtime("20210818");
         stockinData[2].setIbton("33");
-        stockoutData[0] = new StockoutData();
+        stockoutData[0] = new OutStore();
         stockoutData[0].setDetime("20210821");
         stockoutData[0].setObton("36");
-        stockoutData[1] = new StockoutData();
+        stockoutData[1] = new OutStore();
         stockoutData[1].setDetime("20210821");
         stockoutData[1].setObton("30");
-        stockoutData[2] = new StockoutData();
+        stockoutData[2] = new OutStore();
         stockoutData[2].setDetime("20210901");
         stockoutData[2].setObton("36");
 
