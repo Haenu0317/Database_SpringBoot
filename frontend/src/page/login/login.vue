@@ -56,23 +56,24 @@ const form = reactive({
 })
 const store = useStore()
 const login = () => {
-if (!form.username||!form.password){
-  ElMessage.warning('请输入用户名或密码')
-}else{
-  post('/api/auth/login',{
-    username:form.username,
-    password:form.password,
-    remember:form.remember
-  },(message)=>{
-    ElMessage.success(message)
-    get('/api/user/me', (message) => {
-      store.auth.user = message
-      router.push("/index")
-    }, () => {
-      store.auth.user = null
+  if (!form.username||!form.password){
+    ElMessage.warning('请输入用户名或密码')
+  }else{
+    post('/api/auth/login',{
+      username:form.username,
+      password:form.password,
+      remember:form.remember
+    },(message)=>{
+      ElMessage.success(message)
+      console.log(form)
+      get('/api/user/me', (message) => {
+        store.auth.user = message
+        router.push("/company")
+      }, () => {
+        store.auth.user = null
+      })
     })
-  })
-}
+  }
 
 }
 

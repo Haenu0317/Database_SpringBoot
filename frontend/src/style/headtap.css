@@ -1,0 +1,73 @@
+#backcont{
+    background-image: url("../assets/beijing.jpg");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    min-height: 100vh;
+}
+
+.gankou-content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.login-cont{
+    width: 500px;
+    height: 300px;
+    background: cadetblue;
+    border-radius: 5px;
+}
+
+.gankou-title{
+    text-align: center;
+    color: black;
+    font-size: 30px;
+    padding: 30px;
+    font-family: Arial,Helvetica,sans-serif;
+}
+
+.gankou-user p{
+    width: 50px;
+    color: black;
+    font-size: 16px;
+}
+
+.gankou-user{
+    width: 400px;
+    margin: 0 auto;
+    padding-top: 12px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+
+.inptflex{
+    flex: 1;
+}
+
+.reg-view{
+    width: 400px;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 auto;
+    padding-top: 10px;
+}
+
+.reg-view p{
+    cursor: pointer;
+    display: contents;
+}
+
+.gankou-btn{
+    width: 170px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto 0 auto;
+    font-size: 16px;
+}
