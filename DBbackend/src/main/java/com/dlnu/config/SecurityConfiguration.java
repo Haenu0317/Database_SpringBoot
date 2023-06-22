@@ -121,7 +121,6 @@ public class SecurityConfiguration {
     private void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
         try {
             httpServletResponse.setContentType("application/json;charset=utf-8");
-            System.out.println(e.getMessage());
             httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401, "用户名或者密码错误")));
         } catch (IOException ioException) {
             ioException.printStackTrace();
