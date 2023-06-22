@@ -63,4 +63,17 @@ const router = createRouter({
     routes,
 });
 
+router.beforeEach((to,from,next) =>{
+    const store = useStore()
+    if (store.auth.user != null && to.name.startsWith('welcome-')) {
+        next('/index')
+    }else if (store.auth.user == null && to.fullPath.startsWith('/company')) {
+        next('/')
+    }else if (to.matched.length === 0){
+        next('/index')
+    }else {
+        next()
+    }
+})
+
 export default router
