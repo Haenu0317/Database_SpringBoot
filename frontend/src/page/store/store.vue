@@ -21,7 +21,6 @@
             </el-col>
             <el-button type="success" round @click="insstore">添加</el-button>
             <el-button type="primary" round @click="updatastoredata">修改</el-button>
-            <el-button type="info" round @click="findsotredata">查看</el-button>
           </el-row>
         </el-card>
         <el-row :gutter="20" class="el_row">
@@ -55,6 +54,7 @@ import {Delete,Search} from "@element-plus/icons-vue"
 import {Delstore} from '@/api/storeDel'
 import {findonestoredata} from '@/api/storeFindone'
 import {updatastore} from '@/api/storeUpdata'
+import {ElMessage} from "element-plus";
 export default {
   name: "store",
   components:{
@@ -79,45 +79,43 @@ export default {
   const table = ref([])
   const insstore = () =>{
     insstoredata(form.value).then(res => {
-      const {flag} = res.data
-      if (flag === true){
-        alert('添加成功')
+      if (res.data.success === true) {
+        ElMessage.success('添加成功')
+        findsotredata()
       } else {
-        alert('添加失败,请检查信息')
+        ElMessage.error(res.data)
       }
     })
   }
   const updatastoredata = () =>{
     updatastore(form.value).then(res => {
-      const {flag} = res.data
-      if (flag === true){
-        alert('修改成功')
+      if (res.data.success === true) {
+        ElMessage.success('修改成功')
+        findsotredata()
       } else {
-        alert('修改失败,请检查信息')
+        ElMessage.error('修改失败,请检查信息')
       }
     })
   }
 
   const findsotredata = async () =>{
     const res = await Findallstoredata()
-    console.log(res.data.data)
-    table.value = res.data.data
+    table.value = res.data.message
   }
 
   const findonestore = async() =>{
     const res =await findonestoredata(delform.value)
-    console.log(res.data.data)
-    table.value = res.data.data
-
+    console.log(res.data.message)
+    table.value = res.data.message
   }
 
   const delstoredata = () =>{
     Delstore(delform.value).then(res => {
-      const {flag} = res.data
-      if (flag === true){
-        alert('删除成功')
+      if (res.data.success === true) {
+        ElMessage.success('删除成功')
+        findsotredata()
       } else {
-        alert('删除失败,仓库是否存在')
+        ElMessage.error('删除失败,公司是否存在')
       }
     })
   }

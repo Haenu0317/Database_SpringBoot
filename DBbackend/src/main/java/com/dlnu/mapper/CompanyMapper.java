@@ -9,8 +9,8 @@ import java.util.List;
 public interface CompanyMapper {
 
     //增加公司
-    @Insert("insert into company(company_id, company_name, company_belong, company_principal, company_phone) value (#{company_id}, #{company_name}, #{company_belong}, #{company_principal}, #{company_phone})")
-    int createCompany(String company_id, String company_name, String company_belong, String company_principal, String company_phone);
+    @Insert("insert into company(company_id, company_name, company_belong, company_principal, company_phone,company_freedays,company_rate) value (#{company_id}, #{company_name}, #{company_belong}, #{company_principal}, #{company_phone},#{company_freedays},#{company_rate})")
+    int createCompany(String company_id, String company_name, String company_belong, String company_principal, String company_phone,int company_freedays,double company_rate);
 
     //删除公司
     @Delete("delete from company where company_id = #{company_id}")

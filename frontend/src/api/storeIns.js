@@ -2,7 +2,7 @@ import request from "@/api/request";
 
 export const insstoredata = (params) => {
     return request({
-        url:'/store/Ins',
+        url:'/api/auth/store/add',
         method:'POST',
         data:params
     })

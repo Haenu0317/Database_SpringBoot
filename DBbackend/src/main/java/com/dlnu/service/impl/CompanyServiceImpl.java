@@ -16,8 +16,8 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     @Override
-    public int createCompany(String company_id, String company_name, String company_belong, String company_principal, String company_phone) {
-        return mapper.createCompany(company_id, company_name, company_belong, company_principal, company_phone);
+    public int createCompany(String company_id, String company_name, String company_belong, String company_principal, String company_phone,int company_freedays,double company_rate) {
+        return mapper.createCompany(company_id, company_name, company_belong, company_principal, company_phone,company_freedays,company_rate);
     }
 
     @Override

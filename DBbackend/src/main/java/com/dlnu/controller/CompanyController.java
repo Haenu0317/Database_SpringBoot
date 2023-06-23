@@ -58,21 +58,22 @@ public class CompanyController {
      */
     @PostMapping("add")
     public R<String> createCompany(@RequestBody Company company) {
-            int i = 0;
-            Company company1 = companyService.findCompany(company.getCompanyid());
-            if (company1 == null) {
-                try {
-                    i = companyService.createCompany(company.getCompanyid(), company.getCompanyname(), company.getCompanybelong(), company.getCompanyprincipal(), company.getCompanyphone());
-                } catch (Exception e) {
-                    return R.error(201,"请检查是否公司已经存在或者港口不存在");
-                }
-                if (i == 1) {
-                    return R.success("添加成功");
-                }
+        int i = 0;
+        System.out.println(company);
+        Company company1 = companyService.findCompany(company.getCompanyid());
+        if (company1 == null) {
+            try {
+                i = companyService.createCompany(company.getCompanyid(), company.getCompanyname(), company.getCompanybelong(),
+                        company.getCompanyprincipal(), company.getCompanyphone(), company.getCompanyfreedays(), company.getCompanyrate());
+            } catch (Exception e) {
+                return R.error(201, "请检查是否公司已经存在或者港口不存在");
             }
-            return R.error(201, "添加失败");
+            if (i == 1) {
+                return R.success("添加成功");
+            }
         }
-
+        return R.error(201, "添加失败");
+    }
 
 
     /**
