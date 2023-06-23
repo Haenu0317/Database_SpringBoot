@@ -39,8 +39,8 @@
             <el-button type="info" round @click="initcompanylist">查看</el-button>
           </el-row>
         </el-row >
-        <el-table :data="tableData" stripe style="width: 100%">
-          <el-table-column :prop="item.prop" :label="item.label" v-for="(item, index) in options" :key="index"/>
+        <el-table :data="tableData" stripe style="width: 100%" >
+          <el-table-column :prop="item.prop" :label="item.label" col v-for="(item, index) in options" :key="index"/>
         </el-table>
       </el-main>
 
@@ -58,6 +58,7 @@ import {getcompany} from "@/api/companydata"
 import {Updatacompany} from "@/api/companyupdata"
 import {Delcompany} from "@/api/companyDel";
 import {options} from './options'
+import {ElMessage} from "element-plus";
 
 export default {
   name: "company",
@@ -73,8 +74,8 @@ export default {
       companyBelongPort: '',
       companyPrincipal: '',
       companyPhnumber: '',
-      companyFreedays:'14',
-      companyRate:'O.5'
+      companyFreedays:14,
+      companyRate:0.5
     })
 
     const del = ref({
@@ -91,17 +92,15 @@ export default {
 
     const initcompanylist = async () => {
       const res = await getcompany()
-      console.log(res.data.data)
-      tableData.value = res.data.data
+      tableData.value = res.data.message
     }
-
     const inscompany = () =>{
         inscompanydata(form.value).then(res => {
-        const {flag} = res.data
-        if (flag === true){
-          alert('添加成功')
+        if (res.data.success === true) {
+          ElMessage.success('添加成功')
+          initcompanylist()
         } else {
-          alert('添加失败,请检查信息')
+          ElMessage.error('添加失败,请检查信息')
         }
      })
     }

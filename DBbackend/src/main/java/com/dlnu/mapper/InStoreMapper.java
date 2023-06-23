@@ -25,6 +25,7 @@ public interface InStoreMapper {
     @Select("select * from instore where in_carid = #{in_carid}")
     InStore findInStore(@Param("in_carid") String in_carid);
 
+    //查询所有入库记录
     @Select("select * from instore")
     List<InStore> findAllInStore();
 

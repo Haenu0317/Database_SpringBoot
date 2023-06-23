@@ -65,9 +65,10 @@ const login = () => {
       remember:form.remember
     },(message)=>{
       ElMessage.success(message)
-      console.log(form)
+      console.log(message)
       get('/api/user/me', (message) => {
         store.auth.user = message
+        console.log(message)
         router.push("/company")
       }, () => {
         store.auth.user = null

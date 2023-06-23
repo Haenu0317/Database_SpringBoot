@@ -12,7 +12,7 @@ import free from '../page/free/free.vue'
 const routes = [
     {
         path: '/',
-        name: 'Welcome',
+        name: 'welcome',
         component: welcome,
         children: [
             {
@@ -63,17 +63,17 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to,from,next) =>{
+/*router.beforeEach((to,from,next) =>{
     const store = useStore()
-    if (store.auth.user != null && to.name.startsWith('welcome-')) {
-        next('/index')
+    if (store.auth.user != null && to.name.startsWith('welcome')) {
+        next('/company')
     }else if (store.auth.user == null && to.fullPath.startsWith('/company')) {
         next('/')
     }else if (to.matched.length === 0){
-        next('/index')
+        next('/company')
     }else {
         next()
     }
-})
+})*/
 
 export default router

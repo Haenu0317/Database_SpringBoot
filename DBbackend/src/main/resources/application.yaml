@@ -22,3 +22,10 @@ spring:
       port: 6379
       password: Haenu03170811
 
+  # Mybatis开启驼峰映射
+  mybatis:
+    configuration:
+      mapUnderscoreToCamelCase: true
+
+
+
