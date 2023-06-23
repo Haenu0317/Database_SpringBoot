@@ -13,7 +13,7 @@ public interface CompanyMapper {
     int createCompany(String company_id, String company_name, String company_belong, String company_principal, String company_phone);
 
     //删除公司
-    @Insert("delete from company where company_id = #{company_id}")
+    @Delete("delete from company where company_id = #{company_id}")
     int deleteCompany(String company_id);
 
     //修改公司
@@ -22,6 +22,16 @@ public interface CompanyMapper {
 
     //查询公司
     @Select("select * from company where company_id = #{company_id}")
+    @Results({
+            @Result(column = "company_id", property = "companyid"),
+            @Result(column = "company_name", property = "companyname"),
+            @Result(column = "company_belong", property = "companybelong"),
+            @Result(column = "company_principal", property = "companyprincipal"),
+            @Result(column = "company_phone", property = "companyphone"),
+            @Result(column = "company_freedays", property = "companyfreedays"),
+            @Result(column = "company_rate", property = "companyrate")
+    }
+    )
     Company findCompany(String company_id);
 
     //查询所有公司

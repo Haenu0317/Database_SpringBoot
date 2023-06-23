@@ -1,8 +1,8 @@
 import request from "@/api/request";
 
-export const Updatacompany = (params) => {
+export const getonecompany = (params) => {
     return request({
-        url:'/api/auth/company/update',
+        url:'/api/auth/company/getcompany',
         method:'POST',
         data:params
     })
