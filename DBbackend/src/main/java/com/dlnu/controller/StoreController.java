@@ -6,6 +6,7 @@ import com.dlnu.service.StoreService;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -54,11 +55,11 @@ public class StoreController {
     }
 
     @PostMapping("findone")
-    public R<Store> findStore(@RequestBody Store store){
-        Store store1 = service.findStore(store.getStoreid());
-        System.out.println(store1);
-        if (store1 != null){
-            return R.success(store);
+    public R<List<Store>> findStore(@RequestBody Store store){
+        List<Store> storeList = new ArrayList<>(5);
+        storeList.add(service.findStore(store.getStoreid()));
+        if (storeList.size()!=0){
+            return R.success(storeList);
         }else {
             return R.error(201,null);
         }

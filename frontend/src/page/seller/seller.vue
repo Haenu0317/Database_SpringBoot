@@ -45,7 +45,7 @@
             <el-input placeholder="请输入要删除或查找的入库单号"  v-model="delform.sellerId"></el-input>
           </el-col>
           <el-button type="danger" @click="delsellerdata" :icon="Delete" circle />
-          <el-button type="primary" :icon="Search" @click="findoneseller">Search</el-button>
+          <el-button type="primary" :icon="Search" @click="findoneseller">搜索</el-button>
         </el-row>
         <el-table :data="tableData" stripe style="width: 100%">
           <el-table-column :prop="item.prop" :label="item.label" v-for="(item, index) in options" :key="index">
