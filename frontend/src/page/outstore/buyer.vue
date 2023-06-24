@@ -36,6 +36,7 @@
             </el-col>
             <el-button type="success" @click="insbuyer" round >添加</el-button>
             <el-button type="info" round @click="findsellerdata">查看</el-button>
+            <el-button type="warning" round @click="reset">重置</el-button>
           </el-row>
         </el-card>
         <el-row :gutter="20" class="el_row">
@@ -109,7 +110,13 @@ export default {
       buyerTunnage:'',
       buyerStoreid:''
     })
-
+    const reset = () => {
+      form.value.buyerId = ''
+      form.value.buyerDate = ''
+      form.value.buyerCasenum = ''
+      form.value.buyerTunnage = ''
+      form.value.buyerStoreid = ''
+    }
     const formtable = ref({
       buyerId:'',
       buyerDate:'',
@@ -175,7 +182,7 @@ export default {
 
 
 
-    return {form,Delete,Search,table,options,insbuyer,findsellerdata,findselleronedata,delform,delbuyer,Check,printf,locale,dialogVisible,formtable,printfsuccess}
+    return {form,Delete,Search,table,options,insbuyer,findsellerdata,findselleronedata,delform,delbuyer,Check,printf,locale,dialogVisible,formtable,printfsuccess,reset}
   }
 }
 </script>

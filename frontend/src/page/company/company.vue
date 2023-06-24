@@ -12,31 +12,31 @@
         <el-card shadow="never">
           <el-row :gutter="20">
             <el-col :span="3">
-              <el-input placeholder="公司ID" v-model="form.companyId"></el-input>
+              <el-input placeholder="公司ID" v-model.trim="form.companyId"></el-input>
             </el-col>
             <el-col :span="4">
-              <el-input placeholder="公司名称" v-model="form.companyName"></el-input>
+              <el-input placeholder="公司名称" v-model.trim="form.companyName"></el-input>
             </el-col>
             <el-col :span="4">
-              <el-input placeholder="所属港口" v-model="form.companyBelongPort"></el-input>
+              <el-input placeholder="所属港口" v-model.trim="form.companyBelongPort"></el-input>
             </el-col>
             <el-col :span="3">
-              <el-input placeholder="负责人" v-model="form.companyPrincipal"></el-input>
+              <el-input placeholder="负责人" v-model.trim="form.companyPrincipal"></el-input>
             </el-col>
             <el-col :span="3">
-              <el-input placeholder="电话" v-model="form.companyPhnumber"></el-input>
+              <el-input placeholder="电话" v-model.trim="form.companyPhnumber"></el-input>
             </el-col>
+            <el-button type="success" round @click="inscompany">添加</el-button>
+            <el-button type="primary" round @click="updatacompany">修改</el-button>
+            <el-button type="warning" round @click="reset">重置</el-button>
           </el-row>
         </el-card>
         <el-row :gutter="20" class="el_row">
           <el-col :span="4">
-            <el-input placeholder="请输入要删除的公司ID" v-model="del.companyId"></el-input>
+            <el-input placeholder="请输入要删除的公司ID" v-model.trim="del.companyId"></el-input>
           </el-col>
           <el-button type="danger" :icon="Delete" @click="delcompany" circle/>
-          <el-row class="el_bu">
-            <el-button type="success" round @click="inscompany">添加</el-button>
-            <el-button type="primary" round @click="updatacompany">修改</el-button>
-          </el-row>
+
         </el-row>
         <el-table :data="tableData" stripe style="width: 100%">
           <el-table-column :prop="item.prop" :label="item.label" col v-for="(item, index) in options" :key="index"/>
@@ -81,7 +81,15 @@ export default {
     const del = ref({
       companyId: '',
     })
-
+    const reset = () => {
+      form.value.companyId = ''
+      form.value.companyName = ''
+      form.value.companyBelongPort = ''
+      form.value.companyPrincipal = ''
+      form.value.companyPhnumber = ''
+      form.value.companyFreedays = 14
+      form.value.companyRate = 0.5
+    }
     const tableData = ref([])
 
     onMounted(() => {
@@ -147,7 +155,8 @@ export default {
       getonecompany1,
       Delete,
       del,
-      delcompany
+      delcompany,
+      reset
     }
   },
 

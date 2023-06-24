@@ -11,12 +11,12 @@
         <el-card shadow="never">
           <el-row :gutter="20">
             <el-col :span="3">
-              <el-input placeholder="入库单号" v-model="form.sellerId"></el-input>
+              <el-input placeholder="入库单号" v-model.trim="form.inid"></el-input>
             </el-col>
             <el-col :span="5">
               <el-config-provider :locale="locale">
                 <el-date-picker
-                    v-model="form.sellerTime"
+                    v-model="form.intime"
                     tpye = "date"
                     placeholder="请选择入库日期"
                     :size="size"
@@ -25,24 +25,24 @@
               </el-config-provider>
             </el-col>
             <el-col :span="3">
-              <el-input placeholder="进货车牌" v-model="form.sellerCarnum"></el-input>
+              <el-input placeholder="进货车牌" v-model.trim="form.incarid"></el-input>
             </el-col>
             <el-col :span="3">
-              <el-input placeholder="入库吨数" v-model="form.sellerTunnage" oninput="value=value.replace(/\D/g,'')"></el-input>
+              <el-input placeholder="入库吨数" v-model="form.inton" oninput="value=value.replace(/[^\d.]/g, '')"></el-input>
             </el-col>
-<!--            <el-col :span="3">-->
-<!--              <el-input placeholder="入库件数" v-model="form.sellerCasenum" oninput="value=value.replace(/\D/g,'')"></el-input>-->
-<!--            </el-col>-->
             <el-col :span="3">
-              <el-input placeholder="仓库ID" v-model="form.sellerStoreid"></el-input>
+              <el-input placeholder="入库件数" v-model="form.incasenum" oninput="value=value.replace(/\D/g,'')"></el-input>
+            </el-col>
+            <el-col :span="3">
+              <el-input placeholder="仓库ID" v-model.trim="form.instoreid"></el-input>
             </el-col>
             <el-button type="success" round @click="insseller">添加</el-button>
-            <el-button type="info" round @click="findsellerdata">查看</el-button>
+            <el-button type="warning" round @click="reset">重置</el-button>
           </el-row>
         </el-card>
         <el-row class="el_row"  :gutter="20" >
           <el-col :span="5">
-            <el-input placeholder="请输入要删除或查找的入库单号"  v-model="delform.sellerId"></el-input>
+            <el-input placeholder="请输入要删除或查找的入库单号"  v-model="delform.inid"></el-input>
           </el-col>
           <el-button type="danger" @click="delsellerdata" :icon="Delete" circle />
           <el-button type="primary" :icon="Search" @click="findoneseller">搜索</el-button>
@@ -66,11 +66,12 @@ import {inssellerdata} from '@/api/sellerins'
 import {Delete,Search,Check} from "@element-plus/icons-vue"
 import {Delseller} from "@/api/sellerDel"
 import {findonesellerdata} from '@/api/sellerFindone'
-import { ElConfigProvider } from "element-plus";
+import {ElConfigProvider, ElMessage} from "element-plus";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
+import {findonestoredata} from "@/api/storeFindone";
 
 export default {
-  name: "seller",
+  name: "instore",
   components:{
     CommonAside,
     CommonHead,
@@ -78,54 +79,68 @@ export default {
   },
   setup(){
     const form = ref({
-      sellerId:'',
-      sellerTime: '',
-      sellerCarnum: '',
-      sellerTunnage: '',
-      sellerCasenum: '',
-      sellerStoreid: ''
+      inid:'',
+      intime: '',
+      incarid: '',
+      inton: 0.0,
+      incasenum: 0,
+      instoreid: ''
     })
     const tableData = ref([])
     const delform = ref({
-      sellerId:''
+      inid:''
     })
     onMounted(()=>{
       findsellerdata()
     })
     const findsellerdata = async () =>{
       const res = await Findallsellerdata()
-      // console.log(res.data.data)
-      tableData.value = res.data.data
+
+      tableData.value = res.data.message
+    }
+    const reset = () =>{
+      form.value.inid = ''
+      form.value.intime = ''
+      form.value.incarid = ''
+      form.value.inton = 0.0
+      form.value.incasenum = 0
+      form.value.instoreid = ''
     }
     const findoneseller = async () =>{
-      const res = await findonesellerdata(delform.value)
-      tableData.value = res.data.data
+      if (delform.value.inid===''){
+        await findsellerdata()
+      }else {
+        const res = await findonesellerdata(delform.value)
+        tableData.value = res.data.message
+      }
+
     }
 
     const insseller = () => {
+      console.log(form.value)
       inssellerdata(form.value).then(res => {
-        const {flag} = res.data
-        if (flag === true){
-          alert('添加成功')
+        if (res.data.success === true) {
+          ElMessage.success('添加成功')
+          findsellerdata()
         } else {
-          alert('添加失败,请检查信息')
+          ElMessage.error(res.data)
         }
       })
     }
 
     const delsellerdata = () =>{
       Delseller(delform.value).then(res=>{
-        const {flag} = res.data
-        if (flag === true){
-          alert('删除成功')
+        if (res.data.success === true) {
+          ElMessage.success('删除成功')
+          findsellerdata()
         } else {
-          alert('删除失败,订单是否存在')
+          ElMessage.error('删除失败,公司是否存在')
         }
       })
     }
 
 
-    return {form,tableData,options,findsellerdata,insseller,Delete,delform,Search,delsellerdata,findoneseller,Check}
+    return {form,tableData,options,findsellerdata,insseller,Delete,delform,Search,delsellerdata,findoneseller,Check,reset}
   }
 }
 </script>

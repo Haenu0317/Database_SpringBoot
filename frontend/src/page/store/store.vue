@@ -21,6 +21,7 @@
             </el-col>
             <el-button type="success" round @click="insstore">添加</el-button>
             <el-button type="primary" round @click="updatastoredata">修改</el-button>
+
           </el-row>
         </el-card>
         <el-row :gutter="20" class="el_row">

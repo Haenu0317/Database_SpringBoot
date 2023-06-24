@@ -14,7 +14,7 @@
       <template #title>港口公司场地管理</template>
     </el-menu-item>
 
-    <el-menu-item index="/seller">
+    <el-menu-item index="/instore">
       <el-icon><Coin /></el-icon>
       <template #title>进口订单管理</template>
     </el-menu-item>

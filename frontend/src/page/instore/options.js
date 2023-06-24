@@ -1,27 +1,27 @@
 export const options = [
     {
         label: '入库单号',
-        prop: 'sellerId',
+        prop: 'inid',
     },
     {
         label: '入库时间',
-        prop: 'sellerTime',
+        prop: 'intime',
     },
     {
         label: '车牌号',
-        prop: 'sellerCarnum',
+        prop: 'incarid',
     },
     {
         label: '吨数',
-        prop: 'sellerTunnage',
+        prop: 'inton',
     },
     {
         label: '件数',
-        prop: 'sellerCasenum',
+        prop: 'incasenum',
     },
     {
         label: '所在仓库',
-        prop: 'sellerStoreid',
+        prop: 'instoreid',
     },
 
 ]

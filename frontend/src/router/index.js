@@ -5,8 +5,8 @@ import loginPage from '@/page/login/login.vue'
 import registerPage from '@/components/welcome/RegisterPage.vue'
 import store from '../page/store/store.vue'
 import company from '../page/company/company.vue'
-import seller from '../page/seller/seller.vue'
-import buyer from '../page/buyer/buyer.vue'
+import instore from '../page/instore/instore.vue'
+import buyer from '../page/outstore/buyer.vue'
 import free from '../page/free/free.vue'
 
 const routes = [
@@ -40,9 +40,9 @@ const routes = [
     },
     {
         //进口订单管理
-        path:'/seller',
-        name:'seller',
-        component: seller
+        path:'/instore',
+        name:'instore',
+        component: instore
     },
     {
         //出口订单管理
