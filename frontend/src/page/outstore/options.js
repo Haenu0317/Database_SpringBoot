@@ -1,31 +1,27 @@
 export const options = [
     {
         label: '出库单号',
-        prop: 'buyerId',
+        prop: 'outid',
     },
     {
         label: '出库日期',
-        prop: 'buyerDate',
+        prop: 'outdate',
     },
     {
         label: '出库件数',
-        prop: 'buyerCasenum',
+        prop: 'outcasenum',
     },
     {
         label: '出库吨数',
-        prop: 'buyerTunnage',
+        prop: 'outton',
     },
     {
         label: '取货仓库ID',
-        prop: 'buyerStoreid',
+        prop: 'outstoreid',
     },
     {
         label: '堆存费',
-        prop:'buyerCost',
+        prop:'outcost',
     },
-    {
-        label: '是否打印水单',
-        prop:'action',
-    }
 
 ]

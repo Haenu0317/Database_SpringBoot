@@ -95,7 +95,6 @@ export default {
     })
     const findsellerdata = async () =>{
       const res = await Findallsellerdata()
-
       tableData.value = res.data.message
     }
     const reset = () =>{
@@ -117,7 +116,6 @@ export default {
     }
 
     const insseller = () => {
-      console.log(form.value)
       inssellerdata(form.value).then(res => {
         if (res.data.success === true) {
           ElMessage.success('添加成功')

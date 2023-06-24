@@ -16,7 +16,6 @@ public class InStoreController {
     @Resource
     InStoreService service;
 
-
     @GetMapping("findall")
     public R<List<InStore>> findall() {
         List<InStore> allInStore = service.findAllInStore();
@@ -59,6 +58,7 @@ public class InStoreController {
             return R.error(201, "删除失败");
         }
     }
+
 
 
 }

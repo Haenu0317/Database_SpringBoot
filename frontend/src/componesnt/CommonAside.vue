@@ -19,7 +19,7 @@
       <template #title>进口订单管理</template>
     </el-menu-item>
 
-    <el-menu-item index="/buyer">
+    <el-menu-item index="/outstore">
       <el-icon><Document /></el-icon>
       <template #title>出口订单管理</template>
     </el-menu-item>

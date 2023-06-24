@@ -6,8 +6,8 @@ import registerPage from '@/components/welcome/RegisterPage.vue'
 import store from '../page/store/store.vue'
 import company from '../page/company/company.vue'
 import instore from '../page/instore/instore.vue'
-import buyer from '../page/outstore/buyer.vue'
 import free from '../page/free/free.vue'
+import outstore from "@/page/outstore/outstore";
 
 const routes = [
     {
@@ -46,9 +46,9 @@ const routes = [
     },
     {
         //出口订单管理
-        path:'/buyer',
-        name:'buyer',
-        component: buyer
+        path:'/outstore',
+        name:'outstore',
+        component: outstore
     },
     {
         //出口订单管理
