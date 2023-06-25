@@ -63,9 +63,9 @@ const router = createRouter({
     routes,
 });
 
-/*router.beforeEach((to,from,next) =>{
+router.beforeEach((to,from,next) =>{
     const store = useStore()
-    if (store.auth.user != null && to.name.startsWith('welcome')) {
+    if (store.auth.user != null && to.name.startsWith('welcome-')) {
         next('/company')
     }else if (store.auth.user == null && to.fullPath.startsWith('/company')) {
         next('/')
@@ -74,6 +74,6 @@ const router = createRouter({
     }else {
         next()
     }
-})*/
+})
 
 export default router

@@ -4,6 +4,9 @@ spring:
     url: jdbc:mysql://8.130.41.196:3306/数据库课设?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: Haenu
     password: Haenu03170811.
+    hikari:
+      idle-timeout: 10000
+      max-lifetime: 30000
   mail:
     host: smtp.163.com
     username: haenu0317@163.com

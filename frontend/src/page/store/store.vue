@@ -37,7 +37,7 @@
           <el-table-column prop="storeTunnage" label="剩余吨数"/>
           <el-table-column prop="storeCasenum" label="剩余件数"/>
           <el-table-column prop="storeBelongport" label="所属港口"/>
-          <el-table-column prop="storeBelongcompany" label="货代公司名称"/>
+          <el-table-column prop="storeBelongcompany" label="货代公司号"/>
         </el-table>
       </el-main>
     </el-container>

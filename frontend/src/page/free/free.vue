@@ -13,7 +13,7 @@
             <el-input placeholder="请输入要查找的公司ID" v-model="serchform.companyId"></el-input>
           </el-col>
           <el-row class="el_bu">
-            <el-button type="primary" :icon="Search" @click="getcompanyfree">Search</el-button>
+            <el-button type="primary" :icon="Search" @click="getcompanyfree">查找</el-button>
 <!--            <dic style="padding-left: 650px"><el-button type="success" @click="getallfree">查看所有订单费用</el-button></dic>-->
           </el-row>
 

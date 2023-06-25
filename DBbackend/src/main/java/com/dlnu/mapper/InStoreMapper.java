@@ -21,6 +21,9 @@ public interface InStoreMapper {
     @Update("update instore set in_time = #{in_time}, in_carid = #{in_carid}, in_ton = #{in_ton}, in_casenum = #{in_casenum}, in_storeid = #{in_storeid} where in_id = #{in_id}")
     int updateInStore(String in_id, String in_time, String in_carid, double in_ton, int in_casenum, String in_storeid);
 
+    @Update("update instore set real_ton =  #{ton} where in_id = #{in_id}")
+    int updateRealTon(String in_id,double ton);
+
     //查询入库记录
     @Select("select * from instore where in_id = #{in_id}")
     @Results({
@@ -35,6 +38,7 @@ public interface InStoreMapper {
     )
     InStore findInStore(String in_id);
 
+
     //查询所有入库记录
     @Select("select * from instore")
     @Results({
@@ -48,5 +52,24 @@ public interface InStoreMapper {
     }
     )
     List<InStore> findAllInStore();
+
+    @Select("select * from instore where in_storeid = #{storeID}")
+    @Results({
+
+            @Result(column = "in_id", property = "inid"),
+            @Result(column = "in_time", property = "intime"),
+            @Result(column = "in_carid", property = "incarid"),
+            @Result(column = "in_ton", property = "inton"),
+            @Result(column = "in_casenum", property = "incasenum"),
+            @Result(column = "in_storeid", property = "instoreid")
+    }
+    )
+    List<InStore> findAllInStoreByStoreid(String storeID);
+
+
+    @Select("select real_ton from instore where in_id=#{inid}")
+    double findRealTon(String inid);
+
+
 
 }

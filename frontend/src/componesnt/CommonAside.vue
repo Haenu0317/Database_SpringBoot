@@ -29,7 +29,7 @@
       <template #title>费用详情</template>
     </el-menu-item>
 
-    <el-menu-item index="/">
+    <el-menu-item @click="logout" index="/" >
       <el-icon><HomeFilled /></el-icon>
       <template #title>退出</template>
     </el-menu-item>
@@ -44,36 +44,16 @@
 }
 </style>
 
-<script>
+<script setup>
+import {get} from "@/net";
+import {ElMessage} from "element-plus";
+import router from "@/router";
+import {useStore} from "@/stores";
 
-
-export default ({
-
-  data() {
-    return {
-      isCollapse: false,
-
-    };
-  },
-
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    computed: {
-      noChildren(){
-        return this.menu.filter(item => !item.children)
-      },
-      hasChildren(){
-        return this.menu.filter(item => item.children)
-      },
-      isCollapse(){
-        return this.$store.state.tab.isCollapse
-      }
-    },
-  }
-})
+const store = useStore()
+const logout = () => {
+  get('/api/auth/logout', (message) => {
+    store.auth.user = null
+  })
+}
 </script>

@@ -3,10 +3,15 @@ package com.dlnu.controller;
 import com.dlnu.common.R;
 import com.dlnu.entity.user.InStore;
 import com.dlnu.entity.user.OutStore;
+import com.dlnu.entity.user.Store;
+import com.dlnu.mapper.InStoreMapper;
+import com.dlnu.mapper.StoreMapper;
 import com.dlnu.service.OutStoreService;
+import com.dlnu.util.Util;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +20,13 @@ import java.util.List;
 public class OutStoreController {
     @Resource
     OutStoreService service;
+    @Resource
+    InStoreMapper mapper;
+
+    @Resource
+    StoreMapper storeMapper;
+
+
 
     @PostMapping("findone")
     public R<List<OutStore>> findone(@RequestBody OutStore outStore){
@@ -35,8 +47,18 @@ public class OutStoreController {
 
     @PostMapping("add")
     public R<String> CreateOutStore(@RequestBody OutStore outStore){
+        List<Store> all = storeMapper.findAll();
+        for (Store store : all) {
+            if (outStore.getOutstoreid().equals(store.getStoreid())){
+                if (store.getStoreton()<outStore.getOutton()){
+                    return R.error(201,"仓库剩余吨数不足");
+                } else if (store.getStorecasenum()<outStore.getOutcasenum()) {
+                    return R.error(201,"仓库剩余件数不足");
+                }
+            }
+        }
         try {
-            outStore.setOutcost(100.0);
+            outStore.setOutcost(cal_cost(outStore));
             int i = service.CreateOutStore(outStore.getOutid(), outStore.getOutdate(), outStore.getOutcasenum(),
                     outStore.getOutton(), outStore.getOutstoreid(), outStore.getOutcost());
             if(i==1){
@@ -45,7 +67,7 @@ public class OutStoreController {
                 return R.error(201,"添加失败");
             }
         } catch (Exception e) {
-            return R.error(201, "出库失败,请检查取货仓库是否存在");
+            return R.error(201, "出库失败,请检查取货仓库是否存在或是否仓库余量不足");
         }
     }
 
@@ -57,5 +79,38 @@ public class OutStoreController {
         }else{
             return R.error(201,"删除失败");
         }
+    }
+
+    public double cal_cost(OutStore outStore) throws ParseException {
+        List<InStore> inStoreList = mapper.findAllInStoreByStoreid(outStore.getOutstoreid());
+        double cost = 0;
+        double outton = outStore.getOutton();
+        for (InStore inStore : inStoreList) {
+            InStore newinStore = mapper.findInStore(inStore.getInid());
+            double realTon = mapper.findRealTon(newinStore.getInid());
+            if (outton == 0) break;
+            if (realTon==0) continue;
+            double inton = realTon;
+            if (inton<outton){
+                outton-=inton;
+                double temp=inton;
+                inton = 0;
+                mapper.updateRealTon(newinStore.getInid(),inton);
+                int days = Util.getIntervalDays(newinStore.getIntime(), outStore.getOutdate());
+                if (days>=15){
+                    cost += temp*0.5*(days-14);
+                }
+            }else {
+                double temp = outton;
+                inton -= temp;
+                outton = 0;
+                mapper.updateRealTon(newinStore.getInid(),inton);
+                int days = Util.getIntervalDays(newinStore.getIntime(), outStore.getOutdate());
+                if (days>=15){
+                    cost += temp*0.5*(days-14);
+                }
+            }
+        }
+        return cost;
     }
 }

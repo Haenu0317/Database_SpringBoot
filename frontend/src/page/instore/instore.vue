@@ -82,8 +82,8 @@ export default {
       inid:'',
       intime: '',
       incarid: '',
-      inton: 0.0,
-      incasenum: 0,
+      inton: '',
+      incasenum: '',
       instoreid: ''
     })
     const tableData = ref([])
