@@ -24,10 +24,6 @@
       <template #title>出口订单管理</template>
     </el-menu-item>
 
-    <el-menu-item index="/free">
-      <el-icon><View /></el-icon>
-      <template #title>费用详情</template>
-    </el-menu-item>
 
     <el-menu-item @click="logout" index="/" >
       <el-icon><HomeFilled /></el-icon>

@@ -35,6 +35,11 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
+    public String findbelongcompany(String store_id) {
+        return mapper.findbelongcompany(store_id);
+    }
+
+    @Override
     public Store findStore(String store_id) {
         return mapper.findStoreById(store_id);
     }

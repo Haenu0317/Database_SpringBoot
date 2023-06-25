@@ -6,7 +6,6 @@ import registerPage from '@/components/welcome/RegisterPage.vue'
 import store from '../page/store/store.vue'
 import company from '../page/company/company.vue'
 import instore from '../page/instore/instore.vue'
-import free from '../page/free/free.vue'
 import outstore from "@/page/outstore/outstore";
 
 const routes = [
@@ -50,12 +49,7 @@ const routes = [
         name:'outstore',
         component: outstore
     },
-    {
-        //出口订单管理
-        path:'/free',
-        name:'free',
-        component: free
-    }
+
 ]
 
 const router = createRouter({
@@ -66,10 +60,6 @@ const router = createRouter({
 router.beforeEach((to,from,next) =>{
     const store = useStore()
     if (store.auth.user != null && to.name.startsWith('welcome-')) {
-        next('/company')
-    }else if (store.auth.user == null && to.fullPath.startsWith('/company')) {
-        next('/')
-    }else if (to.matched.length === 0){
         next('/company')
     }else {
         next()

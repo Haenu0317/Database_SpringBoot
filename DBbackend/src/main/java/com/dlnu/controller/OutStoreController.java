@@ -4,10 +4,13 @@ import com.dlnu.common.R;
 import com.dlnu.entity.user.InStore;
 import com.dlnu.entity.user.OutStore;
 import com.dlnu.entity.user.Store;
+import com.dlnu.mapper.CompanyMapper;
 import com.dlnu.mapper.InStoreMapper;
+import com.dlnu.mapper.OutStoreMapper;
 import com.dlnu.mapper.StoreMapper;
 import com.dlnu.service.OutStoreService;
 import com.dlnu.util.Util;
+import io.lettuce.core.ScriptOutputType;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +28,8 @@ public class OutStoreController {
 
     @Resource
     StoreMapper storeMapper;
+    @Resource
+    CompanyMapper companyMapper;
 
 
 
@@ -67,13 +72,20 @@ public class OutStoreController {
                 return R.error(201,"添加失败");
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return R.error(201, "出库失败,请检查取货仓库是否存在或是否仓库余量不足");
         }
     }
 
     @PostMapping("del")
     public R<String> deleteOutStore(@RequestBody OutStore outStore){
+        OutStore outStore1 = service.findOutStore(outStore.getOutid());
+        String outstoreid = outStore1.getOutstoreid();
+        String findbelongcompany = storeMapper.findbelongcompany(outstoreid);
+        int i1 = companyMapper.updateCompanyCost(findbelongcompany, outStore1.getOutcost());
+        System.out.println(i1);
         int i = service.deleteOutStore(outStore.getOutid());
+
         if(i==1){
             return R.success("删除成功");
         }else{

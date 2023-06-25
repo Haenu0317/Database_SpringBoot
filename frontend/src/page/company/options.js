@@ -19,4 +19,8 @@ export const options = [
         label: '电话',
         prop: 'companyPhnumber',
     },
+    {
+        label: '堆存费总计',
+        prop: 'companyCost',
+    }
 ]

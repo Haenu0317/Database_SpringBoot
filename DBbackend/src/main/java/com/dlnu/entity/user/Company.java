@@ -28,4 +28,7 @@ public class Company {
     @JsonProperty("companyRate")
     private double companyrate;
 
+    @JsonProperty("companyCost")
+    private double companycost;
+
 }

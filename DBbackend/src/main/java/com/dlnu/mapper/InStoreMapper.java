@@ -40,7 +40,7 @@ public interface InStoreMapper {
 
 
     //查询所有入库记录
-    @Select("select * from instore")
+    @Select("select * from instore order by (in_id+0)")
     @Results({
 
             @Result(column = "in_id", property = "inid"),
@@ -53,7 +53,7 @@ public interface InStoreMapper {
     )
     List<InStore> findAllInStore();
 
-    @Select("select * from instore where in_storeid = #{storeID}")
+    @Select("select * from instore where in_storeid = #{storeID} order by (in_id+0)")
     @Results({
 
             @Result(column = "in_id", property = "inid"),

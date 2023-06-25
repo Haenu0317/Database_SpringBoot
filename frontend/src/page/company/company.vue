@@ -99,6 +99,7 @@ export default {
 
     const initcompanylist = async () => {
       const res = await getcompany()
+      console.log(res.data.message)
       tableData.value = res.data.message
     }
     const getonecompany1 = async () => {

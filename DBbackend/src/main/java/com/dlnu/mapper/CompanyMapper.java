@@ -16,6 +16,12 @@ public interface CompanyMapper {
     @Delete("delete from company where company_id = #{company_id}")
     int deleteCompany(String company_id);
 
+    @Update("update company set company_cost = company_cost - #{company_cost} where company_id = #{company_id}")
+    int updateCompanyCost(String company_id, double company_cost);
+
+    @Select("select company_cost from company where company_id = #{company_id}")
+    double findCompanyCost(String company_id);
+
     //修改公司
     @Update("update company set company_name = #{company_name}, company_belong = #{company_belong}, company_principal = #{company_principal}, company_phone = #{company_phone} where company_id = #{company_id}")
     int updateCompany(String company_id, String company_name, String company_belong, String company_principal, String company_phone);
@@ -43,7 +49,8 @@ public interface CompanyMapper {
             @Result(column = "company_principal", property = "companyprincipal"),
             @Result(column = "company_phone", property = "companyphone"),
             @Result(column = "company_freedays", property = "companyfreedays"),
-            @Result(column = "company_rate", property = "companyrate")
+            @Result(column = "company_rate", property = "companyrate"),
+            @Result(column = "company_cost", property = "companycost")
     }
     )
     List<Company> findAllCompany();

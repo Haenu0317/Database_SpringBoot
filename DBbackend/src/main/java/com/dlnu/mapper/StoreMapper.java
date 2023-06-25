@@ -48,6 +48,9 @@ public interface StoreMapper {
     int updateStore(String store_id, double store_ton, int store_casenum, String store_belongport, String store_belongcompany);
 
 
+    @Select("select store_belongcompany from store where store_id=#{store_id}")
+    String findbelongcompany(String store_id);
+
     /**
      * 删除
      * @param store_id

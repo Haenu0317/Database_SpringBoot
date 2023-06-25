@@ -13,5 +13,8 @@ public interface StoreService {
 
     int deleteStore(String store_id);
 
+    String findbelongcompany(String store_id);
+
     Store findStore(String store_id);
+
 }

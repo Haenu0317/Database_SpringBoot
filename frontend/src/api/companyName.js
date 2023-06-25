@@ -2,7 +2,7 @@ import request from "./request";
 
 export const getcompanyName = (params) => {
     return request({
-        url:'/company/name',
+        url:'/api/auth/company/getcompany',
         method:'POST',
         data:params
     })

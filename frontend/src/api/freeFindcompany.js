@@ -2,7 +2,7 @@ import request from "@/api/request";
 
 export const Findallfreecompanydata = (params) => {
     return request({
-        url:'/free/company',
+        url:'/api/auth/company/free',
         method:'POST',
         data:params
     })

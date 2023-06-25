@@ -39,8 +39,6 @@ public class CompanyController {
     public R<Company> getCompany(@RequestBody Company company) {
         System.out.println(company.getCompanyid());
         Company company1 = companyService.findCompany(company.getCompanyid());
-        System.out.println(company1);
-        System.out.println("---------------");
         if (company1 != null) {
             return R.success(company1);
         } else {
