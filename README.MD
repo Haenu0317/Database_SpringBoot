@@ -6,11 +6,11 @@
 **接口测试:ApiFox**
 **写日报工具:Vscode+Markdown插件**
 ## 前端
-**使用组件：node + npm + vue + yarn + vite + router/pinia + vuex +axios + element plus**
+**使用组件：node + npm + vue + yarn + router/pinia + vuex +axios + element plus**
 **使用框架：vue3 + element-plus**
 ## 后端
 **开发语言：java**
-**使用框架：SpringBoot + MybatisPlus + SpringCloud + SpringSecurity**
+**使用框架：SpringBoot3 + MybatisPlus  + SpringSecurity**
 **包管理:maven**
 
 ## 服务器
