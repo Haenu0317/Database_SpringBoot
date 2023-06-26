@@ -10,7 +10,7 @@
 **使用框架：vue3 + element-plus**
 ## 后端
 **开发语言：java**
-**使用框架：SpringBoot3 + MybatisPlus  + SpringSecurity**
+**使用框架：SpringBoot3 + Mybatis  + SpringSecurity**
 **包管理:maven**
 
 ## 服务器
