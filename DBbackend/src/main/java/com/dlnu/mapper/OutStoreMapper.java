@@ -21,7 +21,7 @@ public interface OutStoreMapper {
     )
     OutStore findOutStore(String out_id);
 
-    @Select("select * from outstore")
+    @Select("select * from outstore order by (out_id+0)")
     @Results({
             @Result(column = "out_id",property = "outid"),
             @Result(column = "out_date",property = "outdate"),
