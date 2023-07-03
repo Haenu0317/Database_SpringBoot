@@ -49,4 +49,6 @@ frontend中有一个VUE3项目有一个个src文件。
 + page层 公司/港口/入库/出库界面
 + main.js为前端的挂载函数
 
+## sql.rar
+为sql创建脚本
 
