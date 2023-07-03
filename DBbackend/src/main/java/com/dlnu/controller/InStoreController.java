@@ -1,5 +1,6 @@
 package com.dlnu.controller;
 
+import com.dlnu.aop.SignatureValidation;
 import com.dlnu.common.R;
 import com.dlnu.entity.user.InStore;
 import com.dlnu.entity.user.Store;
@@ -16,6 +17,7 @@ public class InStoreController {
     @Resource
     InStoreService service;
 
+    @SignatureValidation
     @GetMapping("findall")
     public R<List<InStore>> findall() {
         List<InStore> allInStore = service.findAllInStore();

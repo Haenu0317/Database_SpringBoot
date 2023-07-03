@@ -3,6 +3,7 @@ package com.dlnu;
 import com.dlnu.entity.user.InStore;
 import com.dlnu.entity.user.OutStore;
 import com.dlnu.mapper.InStoreMapper;
+import com.dlnu.util.MD5Utils;
 import com.dlnu.util.Util;
 import jakarta.annotation.Resource;
 import org.junit.jupiter.api.Test;
@@ -33,6 +34,9 @@ class DatabaseSpringBootApplicationTests {
 
     @Test
     void contextLoads() {
+        long a=1524756L;
+        System.out.println(System.currentTimeMillis());
+        System.out.println(MD5Utils.getMD5(a + ""));
 
     }
 

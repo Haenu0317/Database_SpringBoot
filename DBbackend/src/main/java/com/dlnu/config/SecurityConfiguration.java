@@ -130,7 +130,7 @@ public class SecurityConfiguration {
     private void onAuthenticationEntryPoint(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
         try {
             httpServletResponse.setContentType("application/json;charset=utf-8");
-            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401, "请先登录")));
+            httpServletResponse.getWriter().write(JSONObject.toJSONString(R.error(401, "验证失败")));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }

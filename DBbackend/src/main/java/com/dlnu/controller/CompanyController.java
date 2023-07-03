@@ -1,5 +1,6 @@
 package com.dlnu.controller;
 
+import com.dlnu.aop.SignatureValidation;
 import com.dlnu.common.R;
 import com.dlnu.entity.user.Company;
 import com.dlnu.service.CompanyService;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/auth/company")
+
 public class CompanyController {
     @Resource
     CompanyService companyService;
@@ -35,6 +37,7 @@ public class CompanyController {
      * @param company
      * @return
      */
+    @SignatureValidation
     @PostMapping("getcompany")
     public R<Company> getCompany(@RequestBody Company company) {
         System.out.println(company.getCompanyid());

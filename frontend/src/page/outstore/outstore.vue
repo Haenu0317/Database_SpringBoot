@@ -42,9 +42,8 @@
         </el-card>
         <el-row :gutter="20" class="el_row">
           <el-col :span="6">
-            <el-input placeholder="请输入要删除或查找的出库单号" v-model.trim="delform.outid"></el-input>
+            <el-input placeholder="请输入要查找的出库单号" v-model.trim="delform.outid"></el-input>
           </el-col>
-          <el-button type="danger" :icon="Delete" @click="deloutstore" circle/>
           <el-button type="primary" :icon="Search" @click="findselleronedata">查找</el-button>
         </el-row>
         <el-table :data="table" stripe style="width: 100%">
